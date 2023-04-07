@@ -18,9 +18,11 @@ end.
 */
 
 
-let s = '0';
-for(let i = 0; i <= 4; i++) {
-    s += Math.floor(Math.random() * 10 + 1)
+let stringNumber = '';
+const maxSizeOfString = 6;
+for(let i = 0; i < maxSizeOfString; i++) {
+    const randomNumber = Math.floor(Math.random() * 10 + 1)
+    stringNumber = (stringNumber + randomNumber).slice(0, 6)
 
-    console.log(s);
+    console.log(stringNumber)
 }
