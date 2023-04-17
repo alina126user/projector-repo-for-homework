@@ -12,28 +12,64 @@
    // startDate = startDate || '22 Jun 2023';
    // endDate = endDate || '22 Jun 1997';
    // timeDimension = timeDimension || 'minutes'
+function checkIsDimensionValid (dimension) {
+    const validDimensions = ['minutes', 'seconds', 'days', 'hours']
+
+    return validDimensions.includes(dimension)
+}
+
+function checkIsDateValid(date) {
+    const dateToValidate = Date.parse(date);
+    const isInvalid = isNaN(dateToValidate)
+    
+    return !isInvalid
+}
+
+function formatDate (date, duration){
+    return `${date} ${duration}`;
+}
+
 
 function durationBetweenDates(startDate = '22 Jun 2023' , endDate = '22 Jun 1997' , timeDimension = 'minutes') {
+    const isDimensionValid = checkIsDimensionValid(timeDimension);
 
-    const getStartDate = new Date (startDate);
-    const getEndDate = new Date (endDate);
-    const dateInterval = getEndDate - getStartDate;
+    if(!isDimensionValid) {
+        'Invalid dimension'
+    }
+
+    const isStartValid = checkIsDateValid(startDate)
+    const isEndValid = checkIsDateValid(endDate)
+
+    if (!isStartValid || !isEndValid) {
+        return 'Invalid date'
+    }
+
+    const getStartDate = new Date(startDate);
+    const getEndDate = new Date(endDate);
+    const dateInterval = Math.abc(getEndDate - getStartDate);
 
     if (timeDimension === 'days') {
-        return(dateInterval / 86400000)
+        const date = dateInterval / (1000 * 60 * 60 * 24);
+        return formatDate(date, timeDimension);
     }
     
     if (timeDimension === 'seconds'){
-        return(dateInterval / 1000);
+        const date = dateInterval / 1000;
+        return formatDate(date, timeDimension);
     }
    
     if (timeDimension === 'minutes'){ 
-        return(dateInterval / 60000 ) 
+        const date = dateInterval / (1000 * 60);
+        return formatDate(date, timeDimension);
     }
+
     
     if (timeDimension === 'hours'){  
-        return(dateInterval / 3600000)   
+        const date = dateInterval / (1000 * 60 * 60);
+        return formatDate(date, timeDimension);   
     }
+
+    return 'Unsupported case';
     
 };
 durationBetweenDates('02 Aug 1985', '03 Aug 1985', 'seconds') // поверне '86400 seconds'
@@ -49,11 +85,16 @@ const priceData = {
 };
 
 function optimizer(data) {
-    let obj = {};
-    for(const [key, value] of Object.entries(data)){
-        obj[key.toLowerCase()] = Number.parseFloat(value).toFixed(2);
+    if(!data || Array.isArray(data) || typeof data !== 'object'){
+        return 'Invalid data';
     }
-    return obj;
+
+
+    const result = {};
+    for(const [key, value] of Object.entries(data)){
+        result[key.toLowerCase()] = Number.parseFloat(value).toFixed(2);
+    }
+    return result;
 };
 
 let updatedPriceData = optimizer(priceData);
@@ -65,16 +106,24 @@ console.log(updatedPriceData)    // {apples: '23.40', bananas: '48.00', oranges:
 //Приклад:
 
 function recursiveOddSumTo(number) {
+    if (typeof number !== 'number' || isNaN(number)){
+        return 'Invalid data'
+    }
+    if (number <= 0 ) {
+        return 0;
+    }
     if ( number === 1) {
         return 1
-    } else {
-        if ( number % 2 !== 0 ) {
-            return number + recursiveOddSumTo(number - 2)  
-        } else {
-            return recursiveOddSumTo(number - 1)
-        }
-            }   
-   }
+    }
+
+    if ( number % 2 !== 0 ) {
+        return number + recursiveOddSumTo(number - 2)  
+    }
+    
+    return recursiveOddSumTo(number - 1)
+        
+}   
+   
 
 console.log(recursiveOddSumTo(1)) // 1
 console.log(recursiveOddSumTo(10)) // 25
@@ -85,6 +134,13 @@ console.log(recursiveOddSumTo(10)) // 25
 
 function iterativeOddSumTo(number) {
     const sum = 0;
+    if (typeof number !== 'number' || isNaN(number)){
+        return 'Invalid data'
+    }
+    if (number <= 0 ) {
+        return 0;
+    }
+
     for (let i = 1; i <= number; i+=2) {
         
         sum += i
