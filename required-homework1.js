@@ -2,11 +2,11 @@
 const userNames = ["Петрик Ольга Іванівна", "Гнатюк Петро Антонович", "Рудко Андрій Опанасович"];
 let initials = [];
 for (let i = 0; i < userNames.length; i++ ) {
-    let stringName = userNames[i].split(" ");
-    let firstLetter = stringName.map(function(word) {
+    const nameParse = userNames[i].split(" ");
+    const firstLetter = nameParse.map(function(word) {
         return word.charAt(0);      
     });
-    let result = [firstLetter[0], firstLetter[1], firstLetter[2]].join(".");
+    const result = [firstLetter[0], firstLetter[1], firstLetter[2]].join(".");
     initials.push(result);
 }
 initials = initials.sort();
