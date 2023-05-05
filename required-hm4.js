@@ -13,6 +13,19 @@ function detonatorTimer(delay) {
 
     detonatorTimer(3);
 
+    function detonatorTimer(delay) {
+        let intervalId = setInterval(() => {
+            --delay;
+            console.log(delay + 1)
+            if (delay === 0) {
+              clearInterval(intervalId);
+              console.log('BOOM!');
+            }
+          }, 1000)
+        };
+    
+    detonatorTimer(3);    
+
 // Напишіть об'єкт в якому опишіть свої довільні властивості та довільні методи (2-3 штуки) що ці властивості виводять.
 // Наприклад:
 
@@ -35,9 +48,6 @@ let customer = {
     }
     }
     
-    customer.introduce();
-    customer.prognose();
-    customer.describeMyMood();
 
 let securedSelfIntroduce = customer.introduce.bind(customer)
 let securedSelfPrognose = customer.prognose.bind(customer)
