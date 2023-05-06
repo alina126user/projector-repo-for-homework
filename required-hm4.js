@@ -59,12 +59,23 @@ setTimeout(securedSelfDescribeMyMood, 3000); // виведе коректний 
 
 //Напишіть функцію-декоратор яка вопвільнює виконання довільної функції на вказану кількість секунд.
 
-function someFunction // тут напишіть довільну функцію яка робить якусь роботу зі своїми аргументами та виводить результат в консоль
-
-function slower(func, seconds) {
-// тут ваш код для декоратора*
+function someFunction (firstArg, secondArg) {
+    const i = firstArg * 5 
+    const x = secondArg / 10
+    const sum = i + x
+    console.log(`sum: ${sum} - arg1: ${firstArg} & arg2: ${secondArg} `)
+    return sum
 }
 
-let slowedSomeFunction = slower(someFunction, 5); // обгортаєте свою довільну функцію 'someFunction' в декоратор*
+function decoratorSlower(func, seconds) {
+    
+    return function () {
+       setTimeout(func.apply(this, arguments), seconds * 1000)
 
-slowedSomeFunction(/*якісь аргументи*/) // викликаєте декоратор*
+    }
+
+}
+
+let slowedSomeFunction = decoratorSlower(someFunction, 5); 
+
+slowedSomeFunction(10, 15) 
