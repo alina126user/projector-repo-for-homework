@@ -41,6 +41,7 @@
             <div class="dropdown">
                     <label for="days-type">Days type:</label>
                     <select id="days-type">
+                        <option value="default">Please select...</option> 
                         <option value="all">All days</option>
                         <option value="work">Working days</option>
                         <option value="weekend">Weekend</option>
@@ -50,6 +51,7 @@
             <div class="dropdown">
                 <label for="measure">Time measure:</label>
                     <select id="measure">
+                      <option value="default">Please select...</option> 
                       <option value="days">Days</option>
                       <option value="hours">Hours</option>
                       <option value="minutes">Minutes</option>
@@ -58,9 +60,8 @@
             </div>
 
         <br>
-        <b>Start calculation<b>
-            <div class="submit-button">
-                <button name="submit" class="button-submit">Start</button>
+             <div class="submit-button">
+                <button id="calculate" name="submit" class="button-submit">Press me for calculation!</button>
                 <script src="my_project1.js"></script>
             </div>
     </body>

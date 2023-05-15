@@ -26,7 +26,7 @@ const monthPreset = document.getElementById('month');
 const startInput = document.getElementById('start');
 const endInput = document.getElementById('end');
 
-const dayTypes = document.getElementById('days-type') 
+const daysTypeSelect = document.getElementById('days-type') 
 // const allDaysChoose = document.getElementById('all')
 // const workDaysChoose = document.getElementById('work')
 // const weekendDaysChoose = document.getElementById('weekend')
@@ -60,7 +60,6 @@ const values = {
   end: '',
 }
 
-
 function changeInput(e) {
   const value = e.target.value;
   const name = e.target.name;
@@ -70,18 +69,14 @@ function changeInput(e) {
 
 function validateByDate () {
   if ( new Date(values.start) > new Date(values.end)) {
-    document.getElementById("measure").disabled = true;
+    document.getElementById("calculate").setAttribute('disabled', true)
   }
 }
 
 function clickPresetWeek() {
-
-    const startDate = new Date(values.start);
-
-    const endDate = new Date(startDate.getTime() + (7 * 24 * 60 * 60 * 1000));
-    
+    const startDate = new Date(values.start)
+    const endDate = new Date(startDate.getTime() + (7 * 24 * 60 * 60 * 1000));  
     values.end = endDate.toISOString().substring(0, 10);
-
     endInput.value = values.end; 
 }
 
@@ -89,59 +84,67 @@ function clickPresetMonth() {
   const startDate = new Date(values.start);
   const startMonth = startDate.getMonth();
   const year = startDate.getFullYear();
-
   const daysInMonth = new Date(year, startMonth + 1, 0).getDate();
   const endDate = new Date(startDate.getTime() + (daysInMonth * 24 * 60 * 60 * 1000));
-
   values.end = endDate.toISOString().substring(0, 10);
   endInput.value = values.end;
 }
 
-// function selectAllDays() {
-
-// }
-
-// function selectWeekends() {
-
-// }
-
-// function selectWorkDays() {
-
-// }
-
 
 function selectType() {
 const selectedOption = daysTypeSelect.value
-if (selectedOption === 'all') {
+  if (selectedOption === 'default') {
+    console.log('test')
+  } else if (selectedOption === 'all') {
+    console.log('by default')
+  }
+  else if (selectedOption === 'work') {
+    //get range between start and end date -> select days by getDay() -> 1-5
+  } 
+  else if( selectedOption === 'weekend') {
+     //get range between start and end date -> select days by getDay() -> 6,0
+  } 
+}
 
-} else if (selectedOption === 'work') {
-
-} else {
+function selectMeasure() {
+  const selectedMeasure = measureDays.value
+  if (selectedMeasure === 'default') {  
+  } else if ( selectedMeasure === 'days' ) {
+    const getDaysNumber = new Date (values.end) - new Date (values.start)
+    const daysMeasure = getDaysNumber / 1000 / 60 / 60 / 24
+  } else if ( selectedMeasure === 'hours' ) {
+    const getHoursNumber = new Date (values.end) - new Date (values.start)
+    const hoursMeasure = getHoursNumber / 1000 / 60 / 60 
+  } else if ( selectedMeasure === 'minutes' ) {
+    const getMinutesNumber = new Date (values.end) - new Date (values.start)
+    const minutesMeasure = getMinutesNumber / 1000 / 60
+  } else if (  selectedMeasure === 'seconds' ) {
+    const getSecondsNumber = new Date (values.end) - new Date (values.start)
+    const secondsMeasure = getSecondsNumber / 1000
+    console.log(secondsMeasure) 
+  }
 
 }
 
-}
+// function countDays() {
+//   const getDaysNumber = new Date (values.end) - new Date (values.start)
+//   const daysMeasure = getDaysNumber / 1000 / 60 / 60 / 24
 
+//   console.log(daysMeasure)
+// }
 
-function countDays() {
-  const getDaysNumber = new Date (values.end) - new Date (values.start)
-  const daysMeasure = getDaysNumber / 1000 / 60 / 60 / 24
+// function countHours() {
+//   const getHoursNumber = new Date (values.end) - new Date (values.start)
+//   const hoursMeasure = getHoursNumber / 1000 / 60 / 60
+// }
 
-  console.log(daysMeasure)
-}
+// function countMinutes() {
+//   const getMinutesNumber = new Date (values.end) - new Date (values.start)
+//   const minutesMeasure = getMinutesNumber / 1000 / 60
+// }
 
-function countHours() {
-  const getHoursNumber = new Date (values.end) - new Date (values.start)
-  const hoursMeasure = getHoursNumber / 1000 / 60 / 60
-}
-
-function countMinutes() {
-  const getMinutesNumber = new Date (values.end) - new Date (values.start)
-  const minutesMeasure = getMinutesNumber / 1000 / 60
-}
-
-function countSeconds() {
-  const getSecondsNumber = new Date (values.end) - new Date (values.start)
-  const secondsMeasure = getSecondsNumber / 1000 
-}
+// function countSeconds() {
+//   const getSecondsNumber = new Date (values.end) - new Date (values.start)
+//   const secondsMeasure = getSecondsNumber / 1000 
+// }
 
