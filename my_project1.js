@@ -1,11 +1,3 @@
-// function chooseDaysType() {
-//     document.getElementById("days").classList.toggle("show");
-// }
-
-// function chooseMeasureType() {
-//     document.getElementById("measure").classList.toggle("show");
-
-
 window.onclick = function(event) {
   if (!event.target.matches('.dropbtn')) {
 
@@ -22,21 +14,11 @@ window.onclick = function(event) {
 
 const weekPreset = document.getElementById('week');
 const monthPreset = document.getElementById('month');
-
 const startInput = document.getElementById('start');
 const endInput = document.getElementById('end');
-
 const daysTypeSelect = document.getElementById('days-type') 
-// const allDaysChoose = document.getElementById('all')
-// const workDaysChoose = document.getElementById('work')
-// const weekendDaysChoose = document.getElementById('weekend')
-
 const measureDays = document.getElementById('measure')
-// const measureDays = document.getElementById('days')
-// const measureHours = document.getElementById('hours')
-// const measureMinutes = document.getElementById('minutes')
-// const measureSeconds = document.getElementById('seconds')
-
+const calculateTime = document.getElementById('calculate')
 
 weekPreset.addEventListener('click', clickPresetWeek);
 monthPreset.addEventListener('click', clickPresetMonth)
@@ -46,14 +28,10 @@ endInput.addEventListener('change', changeInput);
 
 daysTypeSelect.addEventListener('change', selectType);
 
-// allDaysChoose.addEventListener('click', selectAllDays);
-// workDaysChoose.addEventListener('click', selectWorkDays);
-// weekendDaysChoose.addEventListener('click', selectWeekends);
 measureDays.addEventListener('change', selectMeasure)
-// measureDays.addEventListener('click', countDays)
-// measureHours.addEventListener('click', countHours)
-// measureMinutes.addEventListener('click', countMinutes)
-// measureSeconds.addEventListener('click', countSeconds)
+
+calculateTime.addEventListener('click', calculateResultShowing)
+
 
 const values = {
   start: '',
@@ -90,7 +68,6 @@ function clickPresetMonth() {
   endInput.value = values.end;
 }
 
-
 function selectType() {
 const selectedOption = daysTypeSelect.value
   if (selectedOption === 'default') {
@@ -99,6 +76,17 @@ const selectedOption = daysTypeSelect.value
     console.log('by default')
   }
   else if (selectedOption === 'work') {
+    const date = new Date(values.start)
+    const dateEnd = new Date(values.end)
+    let dateCount = 0
+    while(date <= dateEnd) {
+     const dayOfWeek = date.getDay()
+       if(0 < dayOfWeek && dayOfWeek < 6) {
+          dateCount++
+       }
+       date.setDate(date.getDate() + 1);
+    }
+    console.log(dateCount)
     //get range between start and end date -> select days by getDay() -> 1-5
   } 
   else if( selectedOption === 'weekend') {
@@ -126,25 +114,17 @@ function selectMeasure() {
 
 }
 
-// function countDays() {
-//   const getDaysNumber = new Date (values.end) - new Date (values.start)
-//   const daysMeasure = getDaysNumber / 1000 / 60 / 60 / 24
+function calculateResultShowing() {
+  if ((new Date(values.start) > new Date(values.end)) || new Date(values.start) == NaN
+  || new Date(values.end) == NaN) {
+    document.getElementById("calculate").setAttribute('disabled', true)
+  }
 
-//   console.log(daysMeasure)
-// }
 
-// function countHours() {
-//   const getHoursNumber = new Date (values.end) - new Date (values.start)
-//   const hoursMeasure = getHoursNumber / 1000 / 60 / 60
-// }
+}
 
-// function countMinutes() {
-//   const getMinutesNumber = new Date (values.end) - new Date (values.start)
-//   const minutesMeasure = getMinutesNumber / 1000 / 60
-// }
 
-// function countSeconds() {
-//   const getSecondsNumber = new Date (values.end) - new Date (values.start)
-//   const secondsMeasure = getSecondsNumber / 1000 
-// }
+
+
+
 
