@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <style>                
+            body {
+                text-align: center;
+            }
+        </style>
+        <link rel="stylesheet" type="text/css" href="my_project.css">
+            <title>Time measure</title>
+
+    </head>
+    <body>
+        <header>
+            <h2 style="color:rgb(213, 241, 246)">Time measure</h2>
+        </header>    
+            <b class="titles">Choose your date</b>
+        <br>
+            <div class="titles">
+                
+                <label for="start">Start date:</label>
+
+                <input type="date" name="start" id="start">
+            
+            </div>
+
+            <div class="buttons" >
+
+                <button class="button-measure" id="week">Select week measure</button>
+                
+                <button class="button-measure" id="month">Select month measure</button>
+
+            </div>
+
+            <div class="titles">
+                <label for="end">End date:</label>
+
+                <input type="date" name="end" id="end">
+            </div>
+            <div class="dropdown">
+                    <label for="days-type">Days type:</label>
+                    <select id="days-type">
+                        <option value="all">All days</option>
+                        <option value="work">Working days</option>
+                        <option value="weekend">Weekend</option>
+                      </select>
+            </div>
+        <br>
+            <div class="dropdown">
+                <label for="measure">Time measure:</label>
+                    <select id="measure">
+                      <option value="days">Days</option>
+                      <option value="hours">Hours</option>
+                      <option value="minutes">Minutes</option>
+                      <option value="seconds">Seconds</option>
+                      </select>
+            </div>
+
+        <br>
+        <b>Start calculation<b>
+            <div class="submit-button">
+                <button name="submit" class="button-submit">Start</button>
+                <script src="my_project1.js"></script>
+            </div>
+    </body>
+</html>
