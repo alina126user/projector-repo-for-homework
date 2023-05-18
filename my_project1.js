@@ -19,6 +19,8 @@ const endInput = document.getElementById('end');
 const daysTypeSelect = document.getElementById('days-type') 
 const measureDays = document.getElementById('measure')
 const calculateTime = document.getElementById('calculate')
+const list = document.getElementById('myList');
+const texts = []
 
 weekPreset.addEventListener('click', clickPresetWeek);
 monthPreset.addEventListener('click', clickPresetMonth)
@@ -86,11 +88,19 @@ const selectedOption = daysTypeSelect.value
        }
        date.setDate(date.getDate() + 1);
     }
-    console.log(dateCount)
-    //get range between start and end date -> select days by getDay() -> 1-5
+  
   } 
   else if( selectedOption === 'weekend') {
-     //get range between start and end date -> select days by getDay() -> 6,0
+    const date = new Date(values.start)
+    const dateEnd = new Date(values.end)
+    let dateCount = 0
+    while(date <= dateEnd) {
+     const dayOfWeek = date.getDay()
+       if(dayOfWeek > 5 || dayOfWeek < 1) {
+          dateCount++
+       }
+       date.setDate(date.getDate() + 1);
+    } 
   } 
 }
 
@@ -109,18 +119,27 @@ function selectMeasure() {
   } else if (  selectedMeasure === 'seconds' ) {
     const getSecondsNumber = new Date (values.end) - new Date (values.start)
     const secondsMeasure = getSecondsNumber / 1000
-    console.log(secondsMeasure) 
   }
 
 }
 
 function calculateResultShowing() {
-  if ((new Date(values.start) > new Date(values.end)) || new Date(values.start) == NaN
-  || new Date(values.end) == NaN) {
-    document.getElementById("calculate").setAttribute('disabled', true)
-  }
+    if ((new Date(values.start) > new Date(values.end)) || new Date(values.start) == NaN
+    || new Date(values.end) == NaN) {
+     return  document.getElementById("calculate").setAttribute('disabled', true)
+    }
 
+    if (selectType, selectMeasure) {
+        const resultText = `In measure what you choose we have ${selectMeasure} in this type of days number ${selectType}`
+        resultText.push(shownText)
+    }
 
+    let listItem = document.createElement('li');
+    listItem.textContent = shownText;
+    list.appendChild(listItem);
+
+    const lastTenTimeMeasure = texts.slice(-10);
+    localStorage.setItem('recentTexts', JSON.stringify(lastTenTimeMeasure));
 }
 
 
