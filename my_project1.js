@@ -40,16 +40,20 @@ const values = {
   end: '',
 }
 
+
 function changeInput(e) {
   const value = e.target.value;
   const name = e.target.name;
 
   values[name] = value
+  validateByDate();
 }
 
-function validateByDate () {
-  if ( new Date(values.start) > new Date(values.end)) {
-    document.getElementById("calculate").setAttribute('disabled', true)
+function validateByDate() {
+  if (new Date(values.start) > new Date(values.end)) {
+    calculateTime.setAttribute('disabled', true);
+  } else {
+    calculateTime.removeAttribute('disabled');
   }
 }
 
@@ -70,12 +74,18 @@ function clickPresetMonth() {
   endInput.value = values.end;
 }
 
+
 function selectType() {
 const selectedOption = daysTypeSelect.value
-  if (selectedOption === 'default') {
-    console.log('test')
-  } else if (selectedOption === 'all') {
-    console.log('by default')
+  if (selectedOption === 'default' || selectedOption === 'all') {
+    const date = new Date(values.start)
+    const dateEnd = new Date(values.end)
+    let dateCount = 0
+    while(date < dateEnd) {
+          ++dateCount
+       date.setDate(date.getDate() + 1);
+    } 
+    return dateCount
   }
   else if (selectedOption === 'work') {
     const date = new Date(values.start)
@@ -87,8 +97,8 @@ const selectedOption = daysTypeSelect.value
           dateCount++
        }
        date.setDate(date.getDate() + 1);
-    }
-  
+    } 
+    return dateCount
   } 
   else if( selectedOption === 'weekend') {
     const date = new Date(values.start)
@@ -101,42 +111,60 @@ const selectedOption = daysTypeSelect.value
        }
        date.setDate(date.getDate() + 1);
     } 
+    return dateCount
   } 
+
+
 }
+
 
 function selectMeasure() {
   const selectedMeasure = measureDays.value
-  if (selectedMeasure === 'default') {  
+  if (selectedMeasure === 'default') { 
+    return  measureDays.value
   } else if ( selectedMeasure === 'days' ) {
     const getDaysNumber = new Date (values.end) - new Date (values.start)
     const daysMeasure = getDaysNumber / 1000 / 60 / 60 / 24
+    return daysMeasure
   } else if ( selectedMeasure === 'hours' ) {
     const getHoursNumber = new Date (values.end) - new Date (values.start)
     const hoursMeasure = getHoursNumber / 1000 / 60 / 60 
+    return hoursMeasure
   } else if ( selectedMeasure === 'minutes' ) {
     const getMinutesNumber = new Date (values.end) - new Date (values.start)
     const minutesMeasure = getMinutesNumber / 1000 / 60
+    return minutesMeasure
   } else if (  selectedMeasure === 'seconds' ) {
     const getSecondsNumber = new Date (values.end) - new Date (values.start)
     const secondsMeasure = getSecondsNumber / 1000
+    return secondsMeasure
   }
 
 }
 
 function calculateResultShowing() {
-    if ((new Date(values.start) > new Date(values.end)) || new Date(values.start) == NaN
-    || new Date(values.end) == NaN) {
-     return  document.getElementById("calculate").setAttribute('disabled', true)
-    }
+  if (new Date(values.start) > new Date(values.end) || isNaN(new Date(values.start)) || isNaN(new Date(values.end))) {
+    return calculateTime.setAttribute('disabled', true);
+  }
 
-    if (selectType, selectMeasure) {
-        const resultText = `In measure what you choose we have ${selectMeasure} in this type of days number ${selectType}`
-        resultText.push(shownText)
-    }
+  const selectedOption = daysTypeSelect.value;
+  const selectedMeasure = measureDays.value;
+
+  let resultText = '';
+
+  if (selectedOption === 'work') {
+    resultText = `In ${selectType()} days we have ${selectMeasure()} ${selectedMeasure}.`;
+  } else if (selectedOption === 'weekend') {
+    resultText = `In ${selectType()} days we have ${selectMeasure()} ${selectedMeasure}.`;
+  } else {
+    resultText = `In ${selectType()} days we have ${selectMeasure()} ${selectedMeasure}.`;
+  }
 
     let listItem = document.createElement('li');
-    listItem.textContent = shownText;
+    listItem.textContent = resultText;
     list.appendChild(listItem);
+
+    texts.push(resultText);
 
     const lastTenTimeMeasure = texts.slice(-10);
     localStorage.setItem('recentTexts', JSON.stringify(lastTenTimeMeasure));
