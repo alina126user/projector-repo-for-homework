@@ -1,8 +1,8 @@
-.backgroundLight {
+.light {
     background-color: #e0ede5;
 }
 
-.backgroundDark {
+.dark {
     background-color: #104125; 
 }
 .button-switch {
@@ -30,4 +30,9 @@
     left: 50%;
     -ms-transform: translate(-50%, -50%);
     transform: translate(-50%, -50%);  
+}
+
+.container{
+    width: 100vw;
+    height: 100vh
 }

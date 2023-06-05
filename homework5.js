@@ -1,28 +1,40 @@
-const turnOffButton = document.getElementById('switchOff')
-const turnOnButton = document.getElementById('switchOn')
+// const turnOffButton = document.getElementById('switchOff')
+const button = document.getElementById('switchOn')
 const lastDate = document.getElementById('date');
-const backgroundColorLight = document.querySelector('backgroundLight')
-const backgroundColorDark = document.querySelector('backgroundDark')
+const backgroundColorLight = document.querySelector('light')
+const backgroundColorDark = document.querySelector('dark')
+const container = document.querySelector('container')
 const texts = []
+let mode = 'DARK'
 
-turnOffButton.addEventListener('click', darkState)
-turnOffButton.addEventListener('click', setDateValue)
-turnOnButton.addEventListener('click', lightState)
-turnOnButton.addEventListener('click', setDateValue)
+// turnOffButton.addEventListener('click', darkState)
+// turnOffButton.addEventListener('click', setDateValue)
+button.addEventListener('click', handleButtonClick)
+// turnOnButton.addEventListener('click', setDateValue)
 
-function darkState() {
-    turnOffButton.hidden = true;
-    turnOnButton.hidden = false;
-}
+// function darkState() {
+//     turnOffButton.hidden = true;
+//     turnOnButton.hidden = false;
+// }
 
-function lightState() {
-    turnOnButton.hidden = true
-    turnOffButton.hidden = false
-}
+// function lightState() {
+//     turnOnButton.hidden = true
+//     turnOffButton.hidden = false
+// }
 
-function colorFunction() {
-
-}
+function handleButtonClick(e) {
+    if (mode === 'DARK') {
+       mode = 'LIGHT';
+       container.classList.add('light')
+       container.classList.remove('dark')
+       button.innerHTML = 'Turn off';
+    } else {
+       mode = 'DARK';
+       container.classList.add('dark')
+       container.classList.remove('light')
+       button.innerHTML = 'Turn on';
+    }
+  }
 
 function setDateValue() {
     const date = new Date().toISOString().substring(0, 19);
@@ -36,7 +48,7 @@ function setDateValue() {
   
     displayDate();
 
-    if (turnOffButton.hidden){
+    if (mode === 'DARK'){
         return texts.push(`Last turn on: ${date}`);
      } 
      else {
