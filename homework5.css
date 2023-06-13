@@ -1,0 +1,38 @@
+.light {
+    background-color: #e0ede5;
+}
+
+.dark {
+    background-color: #104125; 
+}
+.button-switch {
+    background-color: #4bb278;
+    color: rgb(249, 245, 226);
+    padding: 12px;
+    margin-top: 10px;
+    margin-bottom: 12px;
+    font-size: 12px;
+    border: 4px;
+    cursor: pointer;
+    margin: 0;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    -ms-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);  
+}
+
+.dataText {
+    margin-top: 10px;
+    font-size: 20px;
+    position: absolute;
+    top: 60%;
+    left: 50%;
+    -ms-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);  
+}
+
+.container{
+    width: 100vw;
+    height: 100vh
+}
