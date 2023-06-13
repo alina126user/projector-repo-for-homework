@@ -1,26 +1,13 @@
-// const turnOffButton = document.getElementById('switchOff')
 const button = document.getElementById('switchOn')
 const lastDate = document.getElementById('date');
-const backgroundColorLight = document.querySelector('light')
-const backgroundColorDark = document.querySelector('dark')
-const container = document.querySelector('container')
+const backgroundColorLight = document.querySelector('.light')
+const backgroundColorDark = document.querySelector('.dark')
+const container = document.querySelector('.container')
 const texts = []
 let mode = 'DARK'
 
-// turnOffButton.addEventListener('click', darkState)
-// turnOffButton.addEventListener('click', setDateValue)
 button.addEventListener('click', handleButtonClick)
-// turnOnButton.addEventListener('click', setDateValue)
 
-// function darkState() {
-//     turnOffButton.hidden = true;
-//     turnOnButton.hidden = false;
-// }
-
-// function lightState() {
-//     turnOnButton.hidden = true
-//     turnOffButton.hidden = false
-// }
 
 function handleButtonClick(e) {
     if (mode === 'DARK') {
@@ -58,12 +45,12 @@ function setDateValue() {
 
 
 function  displayDate() {
-    const getDate = JSON.parse(localStorage.getItem('lastDate'));
+    const date = JSON.parse(localStorage.getItem('lastDate')) || [];
   
     const dateSet = document.getElementById('date');
     dateSet.innerHTML = '';
   
-    getDate.forEach(value => {
+    date.forEach(value => {
       const dateTitle = document.createElement('p');
       dateTitle.textContent = value;
       dateSet.appendChild(dateTitle);
